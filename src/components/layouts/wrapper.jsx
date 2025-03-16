@@ -1,7 +1,7 @@
-export default ({children,classNameParent , classNameChild}) => {
+export default ({children , className}) => {
     return (
-        <div className={`w-full flex flex-col items-center ${classNameParent}`}>
-            <div className={`container h-full flex flex-col ${classNameChild}`}>
+        <div className={`flex justify-center ${className}`}>
+            <div className="container relative">
                 {children}
             </div>
         </div>

@@ -1,9 +1,9 @@
 import { SlPencil, SlVector } from "react-icons/sl";
-export default ({size = "20px"}) => {
+export default () => {
     return (
-        <div className={`text-[${size}]`}>
-            <SlVector style = {{transform: 'rotate(180deg)' }}/>
-            <SlPencil style = {{transform: 'rotate(-45deg)' }}/>
+        <div className="flex items-center">
+            <SlVector className="text-4xl" style = {{transform: 'rotate(180deg)' }}/>
+            <SlPencil className="text-2xl" style = {{transform: 'rotate(-45deg)' }}/>
         </div>
     )
 }
