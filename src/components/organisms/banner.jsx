@@ -1,14 +1,23 @@
-import { SlPencil, SlVector } from "react-icons/sl"
 import Wrapper from "../layouts/wrapper"
+import BannerTitle from "../moleculs/banner_title"
+import {render} from "../../utils/mathjax"
 
 export default () => {
+    function BgFormula(){
+        return (
+            <div className="absolute -left-14  ">
+                <div className="text-9xl transform rotate-[-30deg] opacity-20 ">
+                    {render("\\(f'(x_0) = \\frac{f(x_0 + h) - f(x_0)}{h} = \\frac{f_1 - f_0}{h}\\)")}
+                </div>
+            </div>
+        )
+    }
+
     return (
         <Wrapper className={"pt-20 bg-white"}>
+            {BgFormula()}
             <div className="w-full flex justify-center items-center h-[670px]">
-                <div className="flex flex-col items-center justify-center">
-                    <div className="flex text-9xl items-end font-extrabold">T<SlVector className="text-8xl text-red-600" style = {{transform: 'rotate(180deg)' }}/>urunan</div>
-                    <div className="flex text-7xl items-center font-light">Numer<SlPencil className="text-5xl text-red-600 mx-[-10px]" style = {{transform: 'rotate(-45deg)' }}/>k</div>
-                </div>
+                <BannerTitle/>
             </div>
         </Wrapper>
     )   

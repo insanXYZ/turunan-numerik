@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom"
 
 export default () => {
     return (
-        <div className="w-full relative">
+        <div className="w-full relative bg-white">
             <Topbar/>
             <Sidebar/>
             <Outlet/>
