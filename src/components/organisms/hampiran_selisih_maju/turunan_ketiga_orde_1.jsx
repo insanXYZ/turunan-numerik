@@ -1,13 +1,13 @@
-import { Component, useEffect, useState } from "react";
+import { useState } from "react";
 import FormFormula from "../../moleculs/form_formula";
 import InputFormula from "../../moleculs/input_formula";
 import Render from "../../moleculs/mathjax";
 
-function turunanKeduaOrde2(f0, f1, f2, f3, h) {
-  return (0 - f3 + 4 * f2 - 5 * f1 + 2 * f0) / (12 * h);
+function turunanKetigaOrde1(f0, f1, f2, f3, h) {
+  return (f3 - 3 * f2 + 3 * f1 - f0) / Math.pow(h, 3);
 }
 
-function FormTurunanKeduaOrde2({ setValState }) {
+function FormTurunanKetigaOrde1({ setValState }) {
   const [f0, setf0] = useState(0);
   const [f1, setf1] = useState(0);
   const [f2, setf2] = useState(0);
@@ -35,20 +35,20 @@ function FormTurunanKeduaOrde2({ setValState }) {
   );
 }
 
-function ResultTurunanKeduaOrde2({ stateVal }) {
+function ResultTurunanKetigaOrde1({ stateVal }) {
   return (
     <table className="table text-2xl">
       <tbody>
         <tr>
           <td>
-            <Render formula={"\\(f_0''\\)"} />
+            <Render formula={"\\(f_0'''\\)"} />
           </td>
           <td>
             <Render formula={"\\(=\\)"} />
           </td>
           <td>
             <Render
-              formula={`\\(\\frac{-f_3 + 4f_2 - 5f_1 + 2f_0}{12h} + O(h^2)\\)`}
+              formula={`\\(\\frac{f_3 - 3f_2 + 3f_1 - f_0}{h^3} + O(h)\\)`}
             />
           </td>
         </tr>
@@ -60,7 +60,7 @@ function ResultTurunanKeduaOrde2({ stateVal }) {
           </td>
           <td>
             <Render
-              formula={`\\(\\frac{-${stateVal.f3} + 4.${stateVal.f2} - 5.${stateVal.f1} + 2.${stateVal.f0}}{12.${stateVal.h}}\\)`}
+              formula={`\\(\\frac{${stateVal.f3} - 3.${stateVal.f2} + 3.${stateVal.f1} - ${stateVal.f0}}{${stateVal.h}^3}\\)`}
             />
           </td>
         </tr>
@@ -72,9 +72,9 @@ function ResultTurunanKeduaOrde2({ stateVal }) {
           </td>
           <td>
             <Render
-              formula={`\\(\\frac{-${stateVal.f3} + ${4 * stateVal.f2} - ${
-                5 * stateVal.f1
-              } + ${2 * stateVal.f0}}{${12 * stateVal.h}}\\)`}
+              formula={`\\(\\frac{${stateVal.f3} - ${3 * stateVal.f2} + ${
+                3 * stateVal.f1
+              } - ${stateVal.f0}}{${Math.pow(stateVal.h, 3)}}\\)`}
             />
           </td>
         </tr>
@@ -86,7 +86,7 @@ function ResultTurunanKeduaOrde2({ stateVal }) {
           </td>
           <td>
             <Render
-              formula={turunanKeduaOrde2(
+              formula={turunanKetigaOrde1(
                 stateVal.f0,
                 stateVal.f1,
                 stateVal.f2,
@@ -101,4 +101,4 @@ function ResultTurunanKeduaOrde2({ stateVal }) {
   );
 }
 
-export { FormTurunanKeduaOrde2, ResultTurunanKeduaOrde2 };
+export { FormTurunanKetigaOrde1, ResultTurunanKetigaOrde1 };

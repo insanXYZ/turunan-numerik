@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Wrapper from "../components/layouts/wrapper";
 import FormSelectFormula from "../components/organisms/form_select_formula";
 import ResultFormula from "../components/organisms/result_form_formula";
@@ -21,16 +21,15 @@ import {
   ResultTurunanKeduaOrde2,
 } from "../components/organisms/hampiran_selisih_maju/turunan_kedua_orde_2";
 
-// //TURUNAN KETIGA
+import {
+  FormTurunanKetigaOrde1,
+  ResultTurunanKetigaOrde1,
+} from "../components/organisms/hampiran_selisih_maju/turunan_ketiga_orde_1";
 
-// function turunanKetigaOrde1(f0,f1,f2,f3,h) {
-//     return (f3 - (3 * f2) + (3 * f1) - f0) / (Math.pow(h , 3))
-// }
-
-// // TURUNAN KEEMPAT
-// function turunanKeempatOrde1(f0,f1,f2,f3,f4,h) {
-//     return (f4 - (4 * f3) + (6 *f2) - (4 *f1) + f0) / Math.pow(h,4)
-// }
+import {
+  FormTurunanKeempatOrde1,
+  ResultTurunanKeempatOrde1,
+} from "../components/organisms/hampiran_selisih_maju/turunan_keempat_orde_1";
 
 export default () => {
   const OptionFormulas = [
@@ -53,6 +52,16 @@ export default () => {
       title: "Turunan kedua orde 2",
       renderFormHandler: FormTurunanKeduaOrde2,
       renderResultHandler: ResultTurunanKeduaOrde2,
+    },
+    {
+      title: "Turunan ketiga orde 1",
+      renderFormHandler: FormTurunanKetigaOrde1,
+      renderResultHandler: ResultTurunanKetigaOrde1,
+    },
+    {
+      title: "Turunan keempat orde 1",
+      renderFormHandler: FormTurunanKeempatOrde1,
+      renderResultHandler: ResultTurunanKeempatOrde1,
     },
   ];
 
