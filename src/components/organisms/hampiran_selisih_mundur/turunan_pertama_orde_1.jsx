@@ -2,6 +2,7 @@ import { useState } from "react";
 import FormFormula from "../../moleculs/form_formula";
 import InputFormula from "../../moleculs/input_formula";
 import Render from "../../moleculs/mathjax";
+import ResultFormula from "../../moleculs/result_formula";
 
 function turunanPertamaOrde1(f0, fn1, h) {
   return (f0 - fn1) / h;
@@ -45,33 +46,49 @@ function ResultTurunanPertamaOrde1({ stateVal }) {
           </td>
         </tr>
 
-        <tr>
-          <th></th>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${stateVal.f0} - ${stateVal.fn1}}{${stateVal.h}}\\)`}
-            />
-          </td>
-        </tr>
+        <ResultFormula val={stateVal}>
+          <tr>
+            <th></th>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${stateVal.f0} - ${stateVal.fn1}}{${stateVal.h}}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <th></th>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={turunanPertamaOrde1(
-                stateVal.f0,
-                stateVal.fn1,
-                stateVal.h
-              )}
-            />
-          </td>
-        </tr>
+          <tr>
+            <th></th>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${stateVal.f0 - stateVal.fn1}}{${
+                  stateVal.h
+                }}\\)`}
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <th></th>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={turunanPertamaOrde1(
+                  stateVal.f0,
+                  stateVal.fn1,
+                  stateVal.h
+                )}
+              />
+            </td>
+          </tr>
+        </ResultFormula>
       </tbody>
     </table>
   );

@@ -2,6 +2,7 @@ import { useState } from "react";
 import FormFormula from "../../moleculs/form_formula";
 import InputFormula from "../../moleculs/input_formula";
 import Render from "../../moleculs/mathjax";
+import ResultFormula from "../../moleculs/result_formula";
 
 function turunanPertamaOrde2(f1, fn1, h) {
   return (f1 - fn1) / (2 * h);
@@ -45,47 +46,49 @@ function ResultTurunanPertamaOrde2({ stateVal }) {
           </td>
         </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${stateVal.f1} - ${stateVal.fn1}}{2.${stateVal.h}}\\)`}
-            />
-          </td>
-        </tr>
+        <ResultFormula val={stateVal}>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${stateVal.f1} - ${stateVal.fn1}}{2.${stateVal.h}}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${stateVal.f1} - ${stateVal.fn1}}{${
-                2 * stateVal.h
-              }}\\)`}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${stateVal.f1 - stateVal.fn1}}{${
+                  2 * stateVal.h
+                }}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={turunanPertamaOrde2(
-                stateVal.f1,
-                stateVal.fn1,
-                stateVal.h
-              )}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={turunanPertamaOrde2(
+                  stateVal.f1,
+                  stateVal.fn1,
+                  stateVal.h
+                )}
+              />
+            </td>
+          </tr>
+        </ResultFormula>
       </tbody>
     </table>
   );

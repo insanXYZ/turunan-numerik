@@ -2,6 +2,7 @@ import { useState } from "react";
 import FormFormula from "../../moleculs/form_formula";
 import InputFormula from "../../moleculs/input_formula";
 import Render from "../../moleculs/mathjax";
+import ResultFormula from "../../moleculs/result_formula";
 
 function turunanKeduaOrde4(f0, f1, f2, fn1, fn2, h) {
   return (0 - f2 + 16 * f1 - 30 * f0 + 16 * fn1 - fn2) / (12 * Math.pow(h, 2));
@@ -55,54 +56,73 @@ function ResultTurunanKeduaOrde4({ stateVal }) {
             />
           </td>
         </tr>
+        <ResultFormula val={stateVal}>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{-${stateVal.f2} + 16*${stateVal.f1} - 30*${stateVal.f0} + 16*${stateVal.fn1} - ${stateVal.fn2}}{12*${stateVal.h}^2}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{-${stateVal.f2} + 16.${stateVal.f1} - 30.${stateVal.f0} + 16.${stateVal.fn1} - ${stateVal.fn2}}{12.${stateVal.h}^2}\\)`}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{-${stateVal.f2} + ${16 * stateVal.f1} - ${
+                  30 * stateVal.f0
+                } + ${16 * stateVal.fn1} - ${stateVal.fn2}}{12*${Math.pow(
+                  stateVal.h,
+                  2
+                )}}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{-${stateVal.f2} + ${16 * stateVal.f1} - ${
-                30 * stateVal.f0
-              } + ${16 * stateVal.fn1} - ${stateVal.fn2}}{12.${Math.pow(
-                stateVal.h,
-                2
-              )}}\\)`}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${
+                  -stateVal.f2 +
+                  16 * stateVal.f1 -
+                  30 * stateVal.f0 +
+                  16 * stateVal.fn1 -
+                  stateVal.fn2
+                }}{${12 * Math.pow(stateVal.h, 2)}}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={turunanKeduaOrde4(
-                stateVal.f0,
-                stateVal.f1,
-                stateVal.f2,
-                stateVal.fn1,
-                stateVal.fn2,
-                stateVal.h
-              )}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={turunanKeduaOrde4(
+                  stateVal.f0,
+                  stateVal.f1,
+                  stateVal.f2,
+                  stateVal.fn1,
+                  stateVal.fn2,
+                  stateVal.h
+                )}
+              />
+            </td>
+          </tr>
+        </ResultFormula>
       </tbody>
     </table>
   );

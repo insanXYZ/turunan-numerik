@@ -2,6 +2,7 @@ import { useState } from "react";
 import FormFormula from "../../moleculs/form_formula";
 import InputFormula from "../../moleculs/input_formula";
 import Render from "../../moleculs/mathjax";
+import ResultFormula from "../../moleculs/result_formula";
 
 function turunanKeempatOrde2(f0, f1, f2, fn1, fn2, h) {
   return (f2 - 4 * f1 + 6 * f0 - 4 * fn1 + fn2) / Math.pow(h, 4);
@@ -56,53 +57,73 @@ function ResultTurunanKeempatOrde2({ stateVal }) {
           </td>
         </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${stateVal.f2} - 4.${stateVal.f1} + 6.${stateVal.f0} - 4.${stateVal.fn1} + ${stateVal.fn2}}{${stateVal.h}^4} + O(h^2)\\)`}
-            />
-          </td>
-        </tr>
+        <ResultFormula val={stateVal}>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${stateVal.f2} - 4*${stateVal.f1} + 6*${stateVal.f0} - 4*${stateVal.fn1} + ${stateVal.fn2}}{${stateVal.h}^4}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${stateVal.f2} - ${4 * stateVal.f1} + ${
-                6 * stateVal.f0
-              } - ${4 * stateVal.fn1} + ${stateVal.fn2}}{${Math.pow(
-                stateVal.h,
-                4
-              )}}\\)`}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${stateVal.f2} - ${4 * stateVal.f1} + ${
+                  6 * stateVal.f0
+                } - ${4 * stateVal.fn1} + ${stateVal.fn2}}{${Math.pow(
+                  stateVal.h,
+                  4
+                )}}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={turunanKeempatOrde2(
-                stateVal.f0,
-                stateVal.f1,
-                stateVal.f2,
-                stateVal.fn1,
-                stateVal.fn2,
-                stateVal.h
-              )}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${
+                  stateVal.f2 -
+                  4 * stateVal.f1 +
+                  6 * stateVal.f0 -
+                  4 * stateVal.fn1 +
+                  stateVal.fn2
+                }}{${Math.pow(stateVal.h, 4)}}\\)`}
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={turunanKeempatOrde2(
+                  stateVal.f0,
+                  stateVal.f1,
+                  stateVal.f2,
+                  stateVal.fn1,
+                  stateVal.fn2,
+                  stateVal.h
+                )}
+              />
+            </td>
+          </tr>
+        </ResultFormula>
       </tbody>
     </table>
   );

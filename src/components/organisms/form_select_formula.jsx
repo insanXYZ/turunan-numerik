@@ -1,4 +1,5 @@
 import SelectFormula from "../moleculs/select_formula";
+import Label from "../moleculs/label";
 
 export default ({
   optionFormulas,
@@ -9,17 +10,15 @@ export default ({
   const SelectedForm = optionFormulas[selectedIndex].renderFormHandler;
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="flex justify-between items-center gap-5">
-          <div className="text-center w-1/5">rumus</div>
-          <SelectFormula
-            className={"w-4/5"}
-            options={optionFormulas}
-            onChange={onChangeSelect}
-          />
-        </div>
-      </div>
+    <div className="flex flex-col gap-5">
+      <Label>Rumus</Label>
+      <SelectFormula
+        className={"w-full"}
+        options={optionFormulas}
+        onChange={onChangeSelect}
+      />
+      <Label>Input</Label>
+
       <SelectedForm
         setValState={(o) => setValState({ ...o, id: selectedIndex })}
       />

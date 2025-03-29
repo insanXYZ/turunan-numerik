@@ -2,6 +2,7 @@ import { useState } from "react";
 import FormFormula from "../../moleculs/form_formula";
 import InputFormula from "../../moleculs/input_formula";
 import Render from "../../moleculs/mathjax";
+import ResultFormula from "../../moleculs/result_formula";
 
 function turunanKetigaOrde1(f0, f1, f2, f3, h) {
   return (f3 - 3 * f2 + 3 * f1 - f0) / Math.pow(h, 3);
@@ -53,49 +54,65 @@ function ResultTurunanKetigaOrde1({ stateVal }) {
           </td>
         </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${stateVal.f3} - 3.${stateVal.f2} + 3.${stateVal.f1} - ${stateVal.f0}}{${stateVal.h}^3}\\)`}
-            />
-          </td>
-        </tr>
+        <ResultFormula val={stateVal}>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${stateVal.f3} - 3*${stateVal.f2} + 3*${stateVal.f1} - ${stateVal.f0}}{${stateVal.h}^3}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${stateVal.f3} - ${3 * stateVal.f2} + ${
-                3 * stateVal.f1
-              } - ${stateVal.f0}}{${Math.pow(stateVal.h, 3)}}\\)`}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${stateVal.f3} - ${3 * stateVal.f2} + ${
+                  3 * stateVal.f1
+                } - ${stateVal.f0}}{${Math.pow(stateVal.h, 3)}}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={turunanKetigaOrde1(
-                stateVal.f0,
-                stateVal.f1,
-                stateVal.f2,
-                stateVal.f3,
-                stateVal.h
-              )}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${
+                  stateVal.f3 - 3 * stateVal.f2 + 3 * stateVal.f1 - stateVal.f0
+                }}{${Math.pow(stateVal.h, 3)}}\\)`}
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={turunanKetigaOrde1(
+                  stateVal.f0,
+                  stateVal.f1,
+                  stateVal.f2,
+                  stateVal.f3,
+                  stateVal.h
+                )}
+              />
+            </td>
+          </tr>
+        </ResultFormula>
       </tbody>
     </table>
   );

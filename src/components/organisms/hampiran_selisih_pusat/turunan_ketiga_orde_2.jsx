@@ -2,6 +2,7 @@ import { useState } from "react";
 import FormFormula from "../../moleculs/form_formula";
 import InputFormula from "../../moleculs/input_formula";
 import Render from "../../moleculs/mathjax";
+import ResultFormula from "../../moleculs/result_formula";
 
 function turunanKetigaOrde2(f1, f2, fn1, fn2, h) {
   return (f2 - 2 * f1 + 2 * fn1 - fn2) / (2 * Math.pow(h, 3));
@@ -53,63 +54,68 @@ function ResultTurunanKetigaOrde2({ stateVal }) {
           </td>
         </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${stateVal.f2} - 2.${stateVal.f1} + 2.${stateVal.fn1} - ${stateVal.fn2}}{2.${stateVal.h}^3}\\)`}
-            />
-          </td>
-        </tr>
+        <ResultFormula val={stateVal}>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${stateVal.f2} - 2*${stateVal.f1} + 2*${stateVal.fn1} - ${stateVal.fn2}}{2*${stateVal.h}^3}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${stateVal.f2} - ${2 * stateVal.f1} + ${
-                2 * stateVal.fn1
-              } - ${stateVal.fn2}}{2.${Math.pow(stateVal.h, 3)}}\\)`}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${stateVal.f2} - ${2 * stateVal.f1} + ${
+                  2 * stateVal.fn1
+                } - ${stateVal.fn2}}{2.${Math.pow(stateVal.h, 3)}}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${stateVal.f2} - ${2 * stateVal.f1} + ${
-                2 * stateVal.fn1
-              } - ${stateVal.fn2}}{${2 * Math.pow(stateVal.h, 3)}}\\)`}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${
+                  stateVal.f2 -
+                  2 * stateVal.f1 +
+                  2 * stateVal.fn1 -
+                  stateVal.fn2
+                } }{${2 * Math.pow(stateVal.h, 3)}}\\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={turunanKetigaOrde2(
-                stateVal.f1,
-                stateVal.f2,
-                stateVal.fn1,
-                stateVal.fn2,
-                stateVal.h
-              )}
-            />
-          </td>
-        </tr>
+          <tr>
+            <td></td>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={turunanKetigaOrde2(
+                  stateVal.f1,
+                  stateVal.f2,
+                  stateVal.fn1,
+                  stateVal.fn2,
+                  stateVal.h
+                )}
+              />
+            </td>
+          </tr>
+        </ResultFormula>
       </tbody>
     </table>
   );

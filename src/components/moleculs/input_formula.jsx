@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Render from "./mathjax";
 
 export default ({ formula, onChange }) => {
@@ -8,6 +9,7 @@ export default ({ formula, onChange }) => {
       </div>
       <input
         type="number"
+        step={"0.1"}
         onChange={(v) => onChange(Number(v.target.value))}
         className="input w-4/5"
         required

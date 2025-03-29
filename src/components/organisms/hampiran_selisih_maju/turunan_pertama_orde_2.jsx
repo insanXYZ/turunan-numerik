@@ -2,6 +2,7 @@ import { useState } from "react";
 import FormFormula from "../../moleculs/form_formula";
 import InputFormula from "../../moleculs/input_formula";
 import Render from "../../moleculs/mathjax";
+import ResultFormula from "../../moleculs/result_formula";
 
 function turunanPertamaOrde2(f0, f1, f2, h) {
   return (0 - 3 * f0 + 4 * f1 - f2) / (2 * h);
@@ -48,76 +49,78 @@ function ResultTurunanPertamaOrde2({ stateVal }) {
           </td>
         </tr>
 
-        <tr>
-          <th></th>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{-3.${stateVal.f0} + 4.${stateVal.f1} - ${stateVal.f2}}{2.${stateVal.h}} \\)`}
-            />
-          </td>
-        </tr>
+        <ResultFormula val={stateVal}>
+          <tr>
+            <th></th>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{-3*${stateVal.f0} + 4*${stateVal.f1} - ${stateVal.f2}}{2*${stateVal.h}} \\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <th></th>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{-${3 * stateVal.f0} + ${4 * stateVal.f1} - ${
-                stateVal.f2
-              }}{${2 * stateVal.h}} \\)`}
-            />
-          </td>
-        </tr>
+          <tr>
+            <th></th>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${-3 * stateVal.f0} + ${
+                  4 * stateVal.f1
+                } - ${stateVal.f2}}{${2 * stateVal.h}} \\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <th></th>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${-3 * stateVal.f0 + 4 * stateVal.f1} - ${
-                stateVal.f2
-              }}{${2 * stateVal.h}} \\)`}
-            />
-          </td>
-        </tr>
+          <tr>
+            <th></th>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${-3 * stateVal.f0 + 4 * stateVal.f1} - ${
+                  stateVal.f2
+                }}{${2 * stateVal.h}} \\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <th></th>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`\\(\\frac{${
-                -3 * stateVal.f0 + 4 * stateVal.f1 - stateVal.f2
-              } }{${2 * stateVal.h}} \\)`}
-            />
-          </td>
-        </tr>
+          <tr>
+            <th></th>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`\\(\\frac{${
+                  -3 * stateVal.f0 + 4 * stateVal.f1 - stateVal.f2
+                } }{${2 * stateVal.h}} \\)`}
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <th></th>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render
-              formula={`${turunanPertamaOrde2(
-                stateVal.f0,
-                stateVal.f1,
-                stateVal.f2,
-                stateVal.h
-              )}`}
-            />
-          </td>
-        </tr>
+          <tr>
+            <th></th>
+            <td>
+              <Render formula={"\\(=\\)"} />
+            </td>
+            <td>
+              <Render
+                formula={`${turunanPertamaOrde2(
+                  stateVal.f0,
+                  stateVal.f1,
+                  stateVal.f2,
+                  stateVal.h
+                )}`}
+              />
+            </td>
+          </tr>
+        </ResultFormula>
       </tbody>
     </table>
   );
