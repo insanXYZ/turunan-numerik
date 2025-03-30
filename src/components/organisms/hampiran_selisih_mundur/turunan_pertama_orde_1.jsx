@@ -54,9 +54,7 @@ function RowCalculate({ val }) {
           <Render formula={"\\(=\\)"} />
         </td>
         <td>
-          <Render
-            formula={`\\(\\frac{${stateVal.f0} - ${stateVal.fn1}}{${stateVal.h}}\\)`}
-          />
+          <Render formula={`\\(\\frac{${val.f0} - ${val.fn1}}{${val.h}}\\)`} />
         </td>
       </tr>
 
@@ -66,11 +64,7 @@ function RowCalculate({ val }) {
           <Render formula={"\\(=\\)"} />
         </td>
         <td>
-          <Render
-            formula={`\\(\\frac{${stateVal.f0 - stateVal.fn1}}{${
-              stateVal.h
-            }}\\)`}
-          />
+          <Render formula={`\\(\\frac{${val.f0 - val.fn1}}{${val.h}}\\)`} />
         </td>
       </tr>
 
@@ -80,9 +74,7 @@ function RowCalculate({ val }) {
           <Render formula={"\\(=\\)"} />
         </td>
         <td>
-          <Render
-            formula={turunanPertamaOrde1(stateVal.f0, stateVal.fn1, stateVal.h)}
-          />
+          <Render formula={turunanPertamaOrde1(val.f0, val.fn1, val.h)} />
         </td>
       </tr>
     </>

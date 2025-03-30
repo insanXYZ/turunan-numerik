@@ -3,7 +3,7 @@ export default ({ children, className }) => {
     <div
       className={`flex justify-center relative overflow-hidden ${className}`}
     >
-      <div className="container">{children}</div>
+      <div className="wrapper">{children}</div>
     </div>
   );
 };

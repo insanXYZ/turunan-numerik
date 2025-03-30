@@ -77,7 +77,7 @@ export default () => {
   ];
 
   return (
-    <Wrapper className={"pt-20 bg-white"}>
+    <Wrapper className={"pt-8 bg-white"}>
       <SelectFormInputHampiran optionFormulas={OptionFormulas} />
     </Wrapper>
   );

@@ -53,7 +53,7 @@ function RowFormula() {
   );
 }
 
-function RowCalculate() {
+function RowCalculate({ val }) {
   return (
     <>
       <tr>
@@ -63,7 +63,7 @@ function RowCalculate() {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{${stateVal.f2} - 2*${stateVal.f1} + 2*${stateVal.fn1} - ${stateVal.fn2}}{2*${stateVal.h}^3}\\)`}
+            formula={`\\(\\frac{${val.f2} - 2*${val.f1} + 2*${val.fn1} - ${val.fn2}}{2*${val.h}^3}\\)`}
           />
         </td>
       </tr>
@@ -75,9 +75,9 @@ function RowCalculate() {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{${stateVal.f2} - ${2 * stateVal.f1} + ${
-              2 * stateVal.fn1
-            } - ${stateVal.fn2}}{2.${Math.pow(stateVal.h, 3)}}\\)`}
+            formula={`\\(\\frac{${val.f2} - ${2 * val.f1} + ${2 * val.fn1} - ${
+              val.fn2
+            }}{2.${Math.pow(val.h, 3)}}\\)`}
           />
         </td>
       </tr>
@@ -90,8 +90,8 @@ function RowCalculate() {
         <td>
           <Render
             formula={`\\(\\frac{${
-              stateVal.f2 - 2 * stateVal.f1 + 2 * stateVal.fn1 - stateVal.fn2
-            } }{${2 * Math.pow(stateVal.h, 3)}}\\)`}
+              val.f2 - 2 * val.f1 + 2 * val.fn1 - val.fn2
+            } }{${2 * Math.pow(val.h, 3)}}\\)`}
           />
         </td>
       </tr>
@@ -104,11 +104,11 @@ function RowCalculate() {
         <td>
           <Render
             formula={turunanKetigaOrde2(
-              stateVal.f1,
-              stateVal.f2,
-              stateVal.fn1,
-              stateVal.fn2,
-              stateVal.h
+              val.f1,
+              val.f2,
+              val.fn1,
+              val.fn2,
+              val.h
             )}
           />
         </td>
