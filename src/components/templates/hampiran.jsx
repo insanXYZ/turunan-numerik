@@ -1,6 +1,7 @@
 import { useState } from "react";
-import FormSelectFormula from "../organisms/form_select_formula";
-import ResultFormula from "../organisms/result_form_formula";
+import ResultFormula from "../organisms/result_formula";
+import SelectFormula from "../organisms/select_formula";
+import FormFormula from "../organisms/form_formula";
 
 export default ({ optionFormulas }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -12,13 +13,18 @@ export default ({ optionFormulas }) => {
   }
 
   return (
-    <div className="w-full flex flex-col gap-14">
-      <FormSelectFormula
-        optionFormulas={optionFormulas}
-        selectedIndex={selectedIndex}
-        onChangeSelect={handleChangeSelect}
-        setValState={setVal}
-      />
+    <div className="w-full flex flex-col gap-10">
+      <div className="flex flex-col gap-5">
+        <SelectFormula
+          onChangeSelect={handleChangeSelect}
+          optionFormulas={optionFormulas}
+        />
+        <FormFormula
+          optionFormulas={optionFormulas}
+          selectedIndex={selectedIndex}
+          setValState={setVal}
+        />
+      </div>
       <ResultFormula
         optionFormulas={optionFormulas}
         selectedIndex={selectedIndex}

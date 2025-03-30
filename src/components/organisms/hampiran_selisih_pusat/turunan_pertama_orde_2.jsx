@@ -2,7 +2,6 @@ import { useState } from "react";
 import FormFormula from "../../moleculs/form_formula";
 import InputFormula from "../../moleculs/input_formula";
 import Render from "../../moleculs/mathjax";
-import ResultFormula from "../../moleculs/result_formula";
 
 function turunanPertamaOrde2(f1, fn1, h) {
   return (f1 - fn1) / (2 * h);
@@ -30,68 +29,58 @@ function FormTurunanPertamaOrde2({ setValState }) {
   );
 }
 
-function ResultTurunanPertamaOrde2({ stateVal }) {
+function RowFormula() {
   return (
-    <table className="table text-2xl">
-      <tbody>
-        <tr>
-          <td>
-            <Render formula={"\\(f_0'\\)"} />
-          </td>
-          <td>
-            <Render formula={"\\(=\\)"} />
-          </td>
-          <td>
-            <Render formula={`\\(\\frac{f_1 - f_{-1}}{2h} + O(h^2)\\)`} />
-          </td>
-        </tr>
-
-        <ResultFormula val={stateVal}>
-          <tr>
-            <td></td>
-            <td>
-              <Render formula={"\\(=\\)"} />
-            </td>
-            <td>
-              <Render
-                formula={`\\(\\frac{${stateVal.f1} - ${stateVal.fn1}}{2.${stateVal.h}}\\)`}
-              />
-            </td>
-          </tr>
-
-          <tr>
-            <td></td>
-            <td>
-              <Render formula={"\\(=\\)"} />
-            </td>
-            <td>
-              <Render
-                formula={`\\(\\frac{${stateVal.f1 - stateVal.fn1}}{${
-                  2 * stateVal.h
-                }}\\)`}
-              />
-            </td>
-          </tr>
-
-          <tr>
-            <td></td>
-            <td>
-              <Render formula={"\\(=\\)"} />
-            </td>
-            <td>
-              <Render
-                formula={turunanPertamaOrde2(
-                  stateVal.f1,
-                  stateVal.fn1,
-                  stateVal.h
-                )}
-              />
-            </td>
-          </tr>
-        </ResultFormula>
-      </tbody>
-    </table>
+    <tr>
+      <td>
+        <Render formula={"\\(f_0'\\)"} />
+      </td>
+      <td>
+        <Render formula={"\\(=\\)"} />
+      </td>
+      <td>
+        <Render formula={`\\(\\frac{f_1 - f_{-1}}{2h} + O(h^2)\\)`} />
+      </td>
+    </tr>
   );
 }
 
-export { FormTurunanPertamaOrde2, ResultTurunanPertamaOrde2 };
+function RowCalculate({ val }) {
+  return (
+    <>
+      <tr>
+        <td></td>
+        <td>
+          <Render formula={"\\(=\\)"} />
+        </td>
+        <td>
+          <Render
+            formula={`\\(\\frac{${val.f1} - ${val.fn1}}{2.${val.h}}\\)`}
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>
+          <Render formula={"\\(=\\)"} />
+        </td>
+        <td>
+          <Render formula={`\\(\\frac{${val.f1 - val.fn1}}{${2 * val.h}}\\)`} />
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>
+          <Render formula={"\\(=\\)"} />
+        </td>
+        <td>
+          <Render formula={turunanPertamaOrde2(val.f1, val.fn1, val.h)} />
+        </td>
+      </tr>
+    </>
+  );
+}
+
+export { FormTurunanPertamaOrde2, RowCalculate, RowFormula };
