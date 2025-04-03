@@ -18,7 +18,7 @@ export default () => {
   }
 
   return (
-    <Wrapper className={"bg-white"}>
+    <Wrapper>
       {BgFormula()}
       <div className="w-full flex justify-center items-center h-[530px] md:h-[670px]">
         <BannerTitle />

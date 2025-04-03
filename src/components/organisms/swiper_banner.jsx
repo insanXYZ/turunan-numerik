@@ -6,7 +6,7 @@ import "swiper/css";
 
 export default function App() {
   return (
-    <Wrapper className={"bg-primary h-72 sm:h-96"}>
+    <Wrapper className={"bg-primary h-72 z-10 sm:h-96"}>
       <div className="h-full flex flex-col justify-center lg:flex-row items-center gap-10">
         <div className="text-7xl sm:text-9xl text-white text-center font-extrabold">
           Hitung
@@ -15,7 +15,7 @@ export default function App() {
           spaceBetween={30}
           centeredSlides={true}
           autoplay={{
-            delay: 2500,
+            delay: 1500,
           }}
           className=" text-white text-center w-full text-2xl sm:text-5xl font-extrabold"
           modules={[Autoplay]}
@@ -42,7 +42,6 @@ export default function App() {
             />
           </SwiperSlide>
         </Swiper>
-        {/* </div> */}
       </div>
     </Wrapper>
   );
