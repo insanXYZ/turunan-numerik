@@ -8,12 +8,14 @@ function turunanPertamaOrde1(f0, f1, h) {
 }
 
 function FormTurunanPertamaOrde1({ setValState }) {
+  const [fx, setfx] = useState("x");
   const [f0, setf0] = useState(0);
   const [f1, setf1] = useState(0);
   const [h, seth] = useState(0);
 
   function handleSubmit() {
     setValState({
+      fx: fx,
       f0: f0,
       f1: f1,
       h: h,
@@ -21,7 +23,7 @@ function FormTurunanPertamaOrde1({ setValState }) {
   }
 
   return (
-    <FormFormula onSubmit={handleSubmit}>
+    <FormFormula onChangeFx={(v) => setfx(v)} onSubmit={handleSubmit}>
       <InputFormula onChange={(v) => setf0(v)} formula={"\\(f_0\\)"} />
       <InputFormula onChange={(v) => setf1(v)} formula={"\\(f_1\\)"} />
       <InputFormula onChange={(v) => seth(v)} formula={"\\(h\\)"} />
@@ -46,6 +48,12 @@ function RowFormula() {
 }
 
 function RowCalculate({ val }) {
+  const f = new Function("x", `return ${val.fx}`);
+
+  function replaceFx(v) {
+    return val.fx.replace(/x/g, v);
+  }
+
   return (
     <>
       <tr>
@@ -54,7 +62,11 @@ function RowCalculate({ val }) {
           <Render formula={"\\(=\\)"} />
         </th>
         <th>
-          <Render formula={`\\(\\frac{${val.f1} - ${val.f0}}{${val.h}}\\)`} />
+          <Render
+            formula={`\\(\\frac{(${replaceFx(val.f1)}) - (${replaceFx(
+              val.f0
+            )})}{${val.h}}\\)`}
+          />
         </th>
       </tr>
 
@@ -64,7 +76,9 @@ function RowCalculate({ val }) {
           <Render formula={"\\(=\\)"} />
         </th>
         <th>
-          <Render formula={`\\(\\frac{${val.f1 - val.f0}}{${val.h}}\\)`} />
+          <Render
+            formula={`\\(\\frac{${f(val.f1) - f(val.f0)}}{${val.h}}\\)`}
+          />
         </th>
       </tr>
 
@@ -74,7 +88,9 @@ function RowCalculate({ val }) {
           <Render formula={"\\(=\\)"} />
         </th>
         <th>
-          <Render formula={`${turunanPertamaOrde1(val.f0, val.f1, val.h)}`} />
+          <Render
+            formula={`${turunanPertamaOrde1(f(val.f0), f(val.f1), val.h)}`}
+          />
         </th>
       </tr>
     </>

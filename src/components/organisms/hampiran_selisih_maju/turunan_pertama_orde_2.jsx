@@ -8,6 +8,7 @@ function turunanPertamaOrde2(f0, f1, f2, h) {
 }
 
 function FormTurunanPertamaOrde2({ setValState }) {
+  const [fx, setfx] = useState("x");
   const [f0, setf0] = useState(0);
   const [f1, setf1] = useState(0);
   const [f2, setf2] = useState(0);
@@ -15,6 +16,7 @@ function FormTurunanPertamaOrde2({ setValState }) {
 
   function handleSubmit() {
     setValState({
+      fx,
       f0,
       f1,
       f2,
@@ -23,7 +25,7 @@ function FormTurunanPertamaOrde2({ setValState }) {
   }
 
   return (
-    <FormFormula onSubmit={handleSubmit}>
+    <FormFormula onChangeFx={(v) => setfx(v)} onSubmit={handleSubmit}>
       <InputFormula onChange={(v) => setf0(v)} formula={"\\(f_0\\)"} />
       <InputFormula onChange={(v) => setf1(v)} formula={"\\(f_1\\)"} />
       <InputFormula onChange={(v) => setf2(v)} formula={"\\(f_2\\)"} />
@@ -49,6 +51,12 @@ function RowFormula() {
 }
 
 function RowCalculate({ val }) {
+  const f = new Function("x", `return ${val.fx}`);
+
+  function replaceFx(v) {
+    return val.fx.replace(/x/g, v);
+  }
+
   return (
     <>
       <tr>
@@ -58,7 +66,9 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{-3*${val.f0} + 4*${val.f1} - ${val.f2}}{2*${val.h}} \\)`}
+            formula={`\\(\\frac{-3*(${replaceFx(val.f0)}) + 4*(${replaceFx(
+              val.f1
+            )}) - (${replaceFx(val.f2)})}{2*${val.h}} \\)`}
           />
         </td>
       </tr>
@@ -70,9 +80,9 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{${-3 * val.f0} + ${4 * val.f1} - ${val.f2}}{${
-              2 * val.h
-            }} \\)`}
+            formula={`\\(\\frac{${-3 * f(val.f0)} + ${4 * f(val.f1)} - ${f(
+              val.f2
+            )}}{${2 * val.h}} \\)`}
           />
         </td>
       </tr>
@@ -84,9 +94,9 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{${-3 * val.f0 + 4 * val.f1} - ${val.f2}}{${
-              2 * val.h
-            }} \\)`}
+            formula={`\\(\\frac{${-3 * f(val.f0) + 4 * f(val.f1)} - ${f(
+              val.f2
+            )}}{${2 * val.h}} \\)`}
           />
         </td>
       </tr>
@@ -98,9 +108,9 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{${-3 * val.f0 + 4 * val.f1 - val.f2} }{${
-              2 * val.h
-            }} \\)`}
+            formula={`\\(\\frac{${
+              -3 * f(val.f0) + 4 * f(val.f1) - f(val.f2)
+            } }{${2 * val.h}} \\)`}
           />
         </td>
       </tr>
@@ -112,7 +122,12 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`${turunanPertamaOrde2(val.f0, val.f1, val.f2, val.h)}`}
+            formula={`${turunanPertamaOrde2(
+              f(val.f0),
+              f(val.f1),
+              f(val.f2),
+              val.h
+            )}`}
           />
         </td>
       </tr>

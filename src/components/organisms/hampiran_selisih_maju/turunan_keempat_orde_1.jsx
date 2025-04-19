@@ -2,13 +2,13 @@ import { useState } from "react";
 import FormFormula from "../../moleculs/form_formula";
 import InputFormula from "../../moleculs/input_formula";
 import Render from "../../moleculs/mathjax";
-import TableResult from "../../moleculs/table_result";
 
 function turunanKeempatOrde1(f0, f1, f2, f3, f4, h) {
   return (f4 - 4 * f3 + 6 * f2 - 4 * f1 + f0) / Math.pow(h, 4);
 }
 
 function FormTurunanKeempatOrde1({ setValState }) {
+  const [fx, setfx] = useState("x");
   const [f0, setf0] = useState(0);
   const [f1, setf1] = useState(0);
   const [f2, setf2] = useState(0);
@@ -18,6 +18,7 @@ function FormTurunanKeempatOrde1({ setValState }) {
 
   function handleSubmit() {
     setValState({
+      fx: fx,
       f0: f0,
       f1: f1,
       f2: f2,
@@ -28,7 +29,7 @@ function FormTurunanKeempatOrde1({ setValState }) {
   }
 
   return (
-    <FormFormula onSubmit={handleSubmit}>
+    <FormFormula onChangeFx={(v) => setfx(v)} onSubmit={handleSubmit}>
       <InputFormula onChange={(v) => setf0(v)} formula={"\\(f_0\\)"} />
       <InputFormula onChange={(v) => setf1(v)} formula={"\\(f_1\\)"} />
       <InputFormula onChange={(v) => setf2(v)} formula={"\\(f_2\\)"} />
@@ -58,6 +59,12 @@ function RowFormula() {
 }
 
 function RowCalculate({ val }) {
+  const f = new Function("x", `return ${val.fx}`);
+
+  function replaceFx(v) {
+    return val.fx.replace(/x/g, v);
+  }
+
   return (
     <>
       <tr>
@@ -67,7 +74,11 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{${val.f4} - 4*${val.f3} + 6*${val.f2} - 4*${val.f1} + ${val.f0}}{${val.h}^4} \\)`}
+            formula={`\\(\\frac{(${replaceFx(val.f4)}) - 4*(${replaceFx(
+              val.f3
+            )}) + 6*(${replaceFx(val.f2)}) - 4*(${replaceFx(
+              val.f1
+            )}) + (${replaceFx(val.f0)})}{${val.h}^4} \\)`}
           />
         </td>
       </tr>
@@ -79,9 +90,9 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{${val.f4} - ${4 * val.f3} + ${6 * val.f2} - ${
-              4 * val.f1
-            } + ${val.f0}}{${Math.pow(val.h, 4)}} \\)`}
+            formula={`\\(\\frac{${f(val.f4)} - ${4 * f(val.f3)} + ${
+              6 * f(val.f2)
+            } - ${4 * f(val.f1)} + ${f(val.f0)}}{${Math.pow(val.h, 4)}} \\)`}
           />
         </td>
       </tr>
@@ -94,7 +105,11 @@ function RowCalculate({ val }) {
         <td>
           <Render
             formula={`\\(\\frac{${
-              val.f4 - 4 * val.f3 + 6 * val.f2 - 4 * val.f1 + val.f0
+              f(val.f4) -
+              4 * f(val.f3) +
+              6 * f(val.f2) -
+              4 * f(val.f1) +
+              f(val.f0)
             } }{${Math.pow(val.h, 4)}} \\)`}
           />
         </td>
@@ -108,11 +123,11 @@ function RowCalculate({ val }) {
         <td>
           <Render
             formula={turunanKeempatOrde1(
-              val.f0,
-              val.f1,
-              val.f2,
-              val.f3,
-              val.f4,
+              f(val.f0),
+              f(val.f1),
+              f(val.f2),
+              f(val.f3),
+              f(val.f4),
               val.h
             )}
           />

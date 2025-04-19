@@ -8,12 +8,14 @@ function turunanPertamaOrde2(f1, fn1, h) {
 }
 
 function FormTurunanPertamaOrde2({ setValState }) {
+  const [fx, setfx] = useState("x");
   const [f1, setf1] = useState(0);
   const [fn1, setfn1] = useState(0);
   const [h, seth] = useState(0);
 
   function handleSubmit() {
     setValState({
+      fx: fx,
       f1: f1,
       fn1: fn1,
       h: h,
@@ -21,7 +23,7 @@ function FormTurunanPertamaOrde2({ setValState }) {
   }
 
   return (
-    <FormFormula onSubmit={handleSubmit}>
+    <FormFormula onChangeFx={(v) => setfx(v)} onSubmit={handleSubmit}>
       <InputFormula onChange={(v) => setf1(v)} formula={"\\(f_1\\)"} />
       <InputFormula onChange={(v) => setfn1(v)} formula={"\\(f_{-1}\\)"} />
       <InputFormula onChange={(v) => seth(v)} formula={"\\(h\\)"} />
@@ -46,6 +48,12 @@ function RowFormula() {
 }
 
 function RowCalculate({ val }) {
+  const f = new Function("x", `return ${val.fx}`);
+
+  function replaceFx(v) {
+    return val.fx.replace(/x/g, v);
+  }
+
   return (
     <>
       <tr>
@@ -55,7 +63,9 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{${val.f1} - ${val.fn1}}{2.${val.h}}\\)`}
+            formula={`\\(\\frac{(${replaceFx(val.f1)}) - (${replaceFx(
+              val.fn1
+            )})}{2.${val.h}}\\)`}
           />
         </td>
       </tr>
@@ -66,7 +76,9 @@ function RowCalculate({ val }) {
           <Render formula={"\\(=\\)"} />
         </td>
         <td>
-          <Render formula={`\\(\\frac{${val.f1 - val.fn1}}{${2 * val.h}}\\)`} />
+          <Render
+            formula={`\\(\\frac{${f(val.f1) - f(val.fn1)}}{${2 * val.h}}\\)`}
+          />
         </td>
       </tr>
 
@@ -76,7 +88,7 @@ function RowCalculate({ val }) {
           <Render formula={"\\(=\\)"} />
         </td>
         <td>
-          <Render formula={turunanPertamaOrde2(val.f1, val.fn1, val.h)} />
+          <Render formula={turunanPertamaOrde2(f(val.f1), f(val.fn1), val.h)} />
         </td>
       </tr>
     </>

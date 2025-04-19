@@ -8,6 +8,7 @@ function turunanKeduaOrde2(f0, f1, f2, f3, h) {
 }
 
 function FormTurunanKeduaOrde2({ setValState }) {
+  const [fx, setfx] = useState("x");
   const [f0, setf0] = useState(0);
   const [f1, setf1] = useState(0);
   const [f2, setf2] = useState(0);
@@ -16,6 +17,7 @@ function FormTurunanKeduaOrde2({ setValState }) {
 
   function handleSubmit() {
     setValState({
+      fx: fx,
       f0: f0,
       f1: f1,
       f2: f2,
@@ -25,7 +27,7 @@ function FormTurunanKeduaOrde2({ setValState }) {
   }
 
   return (
-    <FormFormula onSubmit={handleSubmit}>
+    <FormFormula onChangeFx={(v) => setfx(v)} onSubmit={handleSubmit}>
       <InputFormula onChange={(v) => setf0(v)} formula={"\\(f_0\\)"} />
       <InputFormula onChange={(v) => setf1(v)} formula={"\\(f_1\\)"} />
       <InputFormula onChange={(v) => setf2(v)} formula={"\\(f_2\\)"} />
@@ -54,6 +56,12 @@ function RowFormula() {
 }
 
 function RowCalculate({ val }) {
+  const f = new Function("x", `return ${val.fx}`);
+
+  function replaceFx(v) {
+    return val.fx.replace(/x/g, v);
+  }
+
   return (
     <>
       <tr>
@@ -63,7 +71,11 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{-${val.f3} + 4*${val.f2} - 5*${val.f1} + 2*${val.f0}}{12*${val.h}}\\)`}
+            formula={`\\(\\frac{-(${replaceFx(val.f3)}) + 4*(${replaceFx(
+              val.f2
+            )}) - 5*(${replaceFx(val.f1)}) + 2*(${replaceFx(val.f0)})}{12*${
+              val.h
+            }}\\)`}
           />
         </td>
       </tr>
@@ -74,9 +86,9 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{-${val.f3} + ${4 * val.f2} - ${5 * val.f1} + ${
-              2 * val.f0
-            }}{${12 * val.h}}\\)`}
+            formula={`\\(\\frac{-${f(val.f3)} + ${4 * f(val.f2)} - ${
+              5 * f(val.f1)
+            } + ${2 * f(val.f0)}}{${12 * val.h}}\\)`}
           />
         </td>
       </tr>
@@ -88,7 +100,7 @@ function RowCalculate({ val }) {
         <td>
           <Render
             formula={`\\(\\frac{${
-              -val.f3 + 4 * val.f2 - 5 * val.f1 + 2 * val.f0
+              -f(val.f3) + 4 * f(val.f2) - 5 * f(val.f1) + 2 * f(val.f0)
             }}{${12 * val.h}}\\)`}
           />
         </td>
@@ -100,7 +112,13 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={turunanKeduaOrde2(val.f0, val.f1, val.f2, val.f3, val.h)}
+            formula={turunanKeduaOrde2(
+              f(val.f0),
+              f(val.f1),
+              f(val.f2),
+              f(val.f3),
+              val.h
+            )}
           />
         </td>
       </tr>

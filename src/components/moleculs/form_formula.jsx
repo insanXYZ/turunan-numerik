@@ -1,4 +1,6 @@
-export default ({ children, onSubmit }) => {
+import InputFormula from "./input_formula";
+
+export default ({ children, onSubmit, onChangeFx }) => {
   function handleSubmit(e) {
     e.preventDefault();
     onSubmit();
@@ -6,6 +8,7 @@ export default ({ children, onSubmit }) => {
 
   return (
     <form className=" grid grid-cols-2 gap-4" onSubmit={handleSubmit}>
+      <InputFormula type="text" onChange={onChangeFx} formula={"\\(f_x\\)"} />
       {children}
       <button
         className={`btn btn-primary ${

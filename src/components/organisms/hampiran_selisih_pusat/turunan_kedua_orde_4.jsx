@@ -8,6 +8,7 @@ function turunanKeduaOrde4(f0, f1, f2, fn1, fn2, h) {
 }
 
 function FormTurunanKeduaOrde4({ setValState }) {
+  const [fx, setfx] = useState("x");
   const [f0, setf0] = useState(0);
   const [f1, setf1] = useState(0);
   const [f2, setf2] = useState(0);
@@ -17,6 +18,7 @@ function FormTurunanKeduaOrde4({ setValState }) {
 
   function handleSubmit() {
     setValState({
+      fx: fx,
       f0: f0,
       f1: f1,
       f2: f2,
@@ -27,7 +29,7 @@ function FormTurunanKeduaOrde4({ setValState }) {
   }
 
   return (
-    <FormFormula onSubmit={handleSubmit}>
+    <FormFormula onChangeFx={(v) => setfx(v)} onSubmit={handleSubmit}>
       <InputFormula onChange={(v) => setf0(v)} formula={"\\(f_0\\)"} />
       <InputFormula onChange={(v) => setf1(v)} formula={"\\(f_1\\)"} />
       <InputFormula onChange={(v) => setf2(v)} formula={"\\(f_2\\)"} />
@@ -57,6 +59,12 @@ function RowFormula() {
 }
 
 function RowCalculate({ val }) {
+  const f = new Function("x", `return ${val.fx}`);
+
+  function replaceFx(v) {
+    return val.fx.replace(/x/g, v);
+  }
+
   return (
     <>
       <tr>
@@ -66,7 +74,11 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{-${val.f2} + 16*${val.f1} - 30*${val.f0} + 16*${val.fn1} - ${val.fn2}}{12*${val.h}^2}\\)`}
+            formula={`\\(\\frac{-(${replaceFx(val.f2)}) + 16*(${replaceFx(
+              val.f1
+            )}) - 30*(${replaceFx(val.f0)}) + 16*(${replaceFx(
+              val.fn1
+            )}) - (${replaceFx(val.fn2)})}{12*${val.h}^2}\\)`}
           />
         </td>
       </tr>
@@ -78,9 +90,12 @@ function RowCalculate({ val }) {
         </td>
         <td>
           <Render
-            formula={`\\(\\frac{-${val.f2} + ${16 * val.f1} - ${
-              30 * val.f0
-            } + ${16 * val.fn1} - ${val.fn2}}{12*${Math.pow(val.h, 2)}}\\)`}
+            formula={`\\(\\frac{-${f(val.f2)} + ${16 * f(val.f1)} - ${
+              30 * f(val.f0)
+            } + ${16 * f(val.fn1)} - ${f(val.fn2)}}{12*${Math.pow(
+              val.h,
+              2
+            )}}\\)`}
           />
         </td>
       </tr>
@@ -93,7 +108,11 @@ function RowCalculate({ val }) {
         <td>
           <Render
             formula={`\\(\\frac{${
-              -val.f2 + 16 * val.f1 - 30 * val.f0 + 16 * val.fn1 - val.fn2
+              -f(val.f2) +
+              16 * f(val.f1) -
+              30 * f(val.f0) +
+              16 * f(val.fn1) -
+              f(val.fn2)
             }}{${12 * Math.pow(val.h, 2)}}\\)`}
           />
         </td>
@@ -107,11 +126,11 @@ function RowCalculate({ val }) {
         <td>
           <Render
             formula={turunanKeduaOrde4(
-              val.f0,
-              val.f1,
-              val.f2,
-              val.fn1,
-              val.fn2,
+              f(val.f0),
+              f(val.f1),
+              f(val.f2),
+              f(val.fn1),
+              f(val.fn2),
               val.h
             )}
           />

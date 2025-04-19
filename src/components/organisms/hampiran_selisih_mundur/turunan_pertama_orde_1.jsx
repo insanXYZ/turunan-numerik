@@ -8,12 +8,14 @@ function turunanPertamaOrde1(f0, fn1, h) {
 }
 
 function FormTurunanPertamaOrde1({ setValState }) {
+  const [fx, setfx] = useState("x");
   const [f0, setf0] = useState(0);
   const [fn1, setfn1] = useState(0);
   const [h, seth] = useState(0);
 
   function handleSubmit() {
     setValState({
+      fx: fx,
       f0: f0,
       fn1: fn1,
       h: h,
@@ -21,7 +23,7 @@ function FormTurunanPertamaOrde1({ setValState }) {
   }
 
   return (
-    <FormFormula onSubmit={handleSubmit}>
+    <FormFormula onChangeFx={(v) => setfx(v)} onSubmit={handleSubmit}>
       <InputFormula onChange={(v) => setf0(v)} formula={"\\(f_0\\)"} />
       <InputFormula onChange={(v) => setfn1(v)} formula={"\\(f_{-1}\\)"} />
       <InputFormula onChange={(v) => seth(v)} formula={"\\(h\\)"} />
@@ -46,6 +48,12 @@ function RowFormula() {
 }
 
 function RowCalculate({ val }) {
+  const f = new Function("x", `return ${val.fx}`);
+
+  function replaceFx(v) {
+    return val.fx.replace(/x/g, v);
+  }
+
   return (
     <>
       <tr>
@@ -54,7 +62,11 @@ function RowCalculate({ val }) {
           <Render formula={"\\(=\\)"} />
         </td>
         <td>
-          <Render formula={`\\(\\frac{${val.f0} - ${val.fn1}}{${val.h}}\\)`} />
+          <Render
+            formula={`\\(\\frac{(${replaceFx(val.f0)}) - (${replaceFx(
+              val.fn1
+            )})}{${val.h}}\\)`}
+          />
         </td>
       </tr>
 
@@ -64,7 +76,9 @@ function RowCalculate({ val }) {
           <Render formula={"\\(=\\)"} />
         </td>
         <td>
-          <Render formula={`\\(\\frac{${val.f0 - val.fn1}}{${val.h}}\\)`} />
+          <Render
+            formula={`\\(\\frac{${f(val.f0) - f(val.fn1)}}{${val.h}}\\)`}
+          />
         </td>
       </tr>
 
@@ -74,7 +88,7 @@ function RowCalculate({ val }) {
           <Render formula={"\\(=\\)"} />
         </td>
         <td>
-          <Render formula={turunanPertamaOrde1(val.f0, val.fn1, val.h)} />
+          <Render formula={turunanPertamaOrde1(f(val.f0), f(val.fn1), val.h)} />
         </td>
       </tr>
     </>
