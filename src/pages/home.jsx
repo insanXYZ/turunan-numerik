@@ -7,8 +7,6 @@ export default () => {
     <div className="flex flex-col">
       <Banner />
       <SwiperBanner />
-      {/* <TheoryBanner /> */}
-      {/* <FormulaBanner /> */}
     </div>
   );
 };

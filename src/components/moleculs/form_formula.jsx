@@ -28,22 +28,28 @@ export default ({ children, onSubmit, onChangeFx }) => {
     }
 
     if (input.reportValidity()) {
-      onSubmit(); // hanya dipanggil jika valid
+      onSubmit(); 
     }
+  }
+
+  function handleFx(e) {
+    onChangeFx(e.replace('^','**'))
   }
 
   return (
     <form className=" grid grid-cols-2 gap-4" onSubmit={handleSubmit}>
-      <InputFormula
-        id="fx-input"
-        type="text"
-        onChange={onChangeFx}
-        formula={"\\(f_x\\)"}
-      />
+      {onChangeFx && (
+        <InputFormula
+          id="fx-input"
+          type="text"
+          onChange={handleFx}
+          formula={"\\(f_x\\)"}
+        />
+      )}
       {children}
       <button
         className={`btn btn-primary ${
-          children.length % 2 == 0 ? "col-span-2" : ""
+          children && children.length % 2 == 0 ? "col-span-2" : ""
         }`}
       >
         Hitung

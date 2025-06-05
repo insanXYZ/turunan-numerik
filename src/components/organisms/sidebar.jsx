@@ -22,6 +22,11 @@ export default () => {
             </Link>
           </li>
           <li>
+            <Link onClick={closeDrawer} to={"cari-nilai-titik"}>
+              Cari nilai titik
+            </Link>
+          </li>
+          <li>
             <Link onClick={closeDrawer} to={"hampiran-selisih-maju"}>
               Hampiran Selisih Maju
             </Link>

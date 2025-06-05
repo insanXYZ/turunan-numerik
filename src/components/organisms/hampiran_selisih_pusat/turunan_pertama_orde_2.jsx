@@ -3,7 +3,7 @@ import FormFormula from "../../moleculs/form_formula";
 import InputFormula from "../../moleculs/input_formula";
 import Render from "../../moleculs/mathjax";
 
-function turunanPertamaOrde2(f1, fn1, h) {
+export function turunanPertamaOrde2(f1, fn1, h) {
   return (f1 - fn1) / (2 * h);
 }
 
